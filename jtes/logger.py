@@ -1,17 +1,11 @@
 # -*- coding: utf-8 -*-
 import logging
 
+logger = logging.getLogger('jtes')
+logger.setLevel(logging.INFO)
 
-def setup():
-    logger = logging.getLogger('jtes')
-    logger.setLevel(logging.INFO)
+file_handler = logging.FileHandler('debug.txt', 'w', delay=True)
+file_handler.setLevel(logging.DEBUG)
 
-    fh = logging.FileHandler('debug.txt', 'w', delay=True)
-    fh.setLevel(logging.DEBUG)
-
-    ch = logging.StreamHandler()
-    # ch.setLevel(logging.INFO)
-    ch.setLevel(logging.DEBUG)
-
-    logger.addHandler(fh)
-    logger.addHandler(ch)
+stream_handler = logging.StreamHandler()
+stream_handler.setLevel(logging.DEBUG)

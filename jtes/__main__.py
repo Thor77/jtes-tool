@@ -7,11 +7,10 @@ import pprint
 from datetime import date
 from os.path import join
 
-import jtes.logger
 from jtes import config, downloader, episodes, utils
+from jtes.logger import file_handler, stream_handler
 from jtes.utils import play
 
-jtes.logger.setup()
 logger = logging.getLogger('jtes')
 
 
@@ -49,6 +48,10 @@ def cli():
 def main(configuration):
     if configuration.getboolean('General', 'debug'):
         logger.setLevel(logging.DEBUG)
+    # add logging handler
+    logger.addHandler(file_handler)
+    logger.addHandler(stream_handler)
+
     storage_path = configuration.get('General', 'storage')
     episodes_path = join(storage_path, 'episodes')
     meta_path = join(storage_path, 'meta.json')
