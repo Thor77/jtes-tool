@@ -21,20 +21,23 @@ def download_episodes(episodes, target_path):
     :param episode: Episode to download
     :type episode: jtes.episodes.Episode
     '''
+    downloaded_episodes = []
+
     def move_episode(progress_data):
         if progress_data['status'] != 'finished':
             return
         filename = progress_data['filename']
         path = join(target_path, filename)
         os.rename(filename, path)
-        yield Episode(
+        downloaded_episodes.append(Episode(
             published=None,
             name=filename,
             path=path
-        )
+        ))
     YTDL_OPTIONS.setdefault('progress_hooks', []).append(move_episode)
     with youtube_dl.YoutubeDL(YTDL_OPTIONS) as ytdl:
         for episode in episodes:
             ytdl.extract_info(episode.path, extra_info={
                 'episode': episode
             })
+    return downloaded_episodes

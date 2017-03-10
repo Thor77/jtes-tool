@@ -97,8 +97,8 @@ def main(configuration):
         available_episodes
     ))[:configuration.getint('General', 'max')]
     logger.debug('will downloaded these episodes: %s', episodes_to_downloaded)
-    downloads = list(downloader.download_episodes(
-        episodes_to_downloaded, episodes_path))
+    downloads = downloader.download_episodes(
+        episodes_to_downloaded, episodes_path)
     meta.setdefault('downloads', []).extend(downloads)
     # write metadata
     with open(meta_path, 'w+') as f:
