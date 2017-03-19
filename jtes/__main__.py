@@ -79,7 +79,7 @@ def main(configuration):
         logger.debug('there are unplayed episodes: %s', unplayed)
         for unplayed_episode in sorted(unplayed, reverse=True):
             # play episode
-            play(unplayed_episode)
+            play(unplayed_episode.path)
             # add episode to history
             meta.setdefault('history', []).append(unplayed_episode)
     logger.debug('no unplayed episodes left, fetching new ones')
