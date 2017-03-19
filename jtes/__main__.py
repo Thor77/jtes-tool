@@ -72,7 +72,7 @@ def main(configuration):
     )
     # find unplayed files
     unplayed = list(filter(
-        lambda episode: episode in meta.get('history', []),
+        lambda episode: episode not in meta.get('history', []),
         downloaded_episodes
     ))
     if unplayed:
