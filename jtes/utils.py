@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from subprocess import Popen
+from subprocess import run
 
 from jtes.episodes import Episode
 
 
 def play(path):
-    Popen(['mpv', path])
+    run(['mpv', path])
 
 
 def parse_downloads(downloads):
