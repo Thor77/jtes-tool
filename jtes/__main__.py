@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import argparse
-import json
 import logging
 import os
+import pickle
 import pprint
 from datetime import date
 from os.path import join
@@ -54,14 +54,14 @@ def main(configuration):
 
     storage_path = configuration.get('General', 'storage')
     episodes_path = join(storage_path, 'episodes')
-    meta_path = join(storage_path, 'meta.json')
+    meta_path = join(storage_path, 'meta.pickle')
     # make sure required directories exist
     os.makedirs(storage_path, exist_ok=True)
     os.makedirs(episodes_path, exist_ok=True)
     # read metadata
     try:
-        with open(meta_path, 'r') as f:
-            meta = json.load(f)
+        with open(meta_path, 'rb') as f:
+            meta = pickle.load(f)
     except FileNotFoundError:
         meta = {}
     logger.debug(
@@ -101,8 +101,8 @@ def main(configuration):
         episodes_to_downloaded, episodes_path)
     meta.setdefault('downloads', []).extend(downloads)
     # write metadata
-    with open(meta_path, 'w+') as f:
-        json.dump(meta, f)
+    with open(meta_path, 'wb+') as f:
+        pickle.dump(meta, f)
     logger.debug(
         'wrote metadata to %s: %s', meta_path, pprint.pformat(meta))
 
