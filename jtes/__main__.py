@@ -92,8 +92,11 @@ def main(configuration):
     logger.debug('latest downloaded episode is from %s',
                  latest_downloaded_published)
     # only download episodes newer than latest_download
+    # and not already downloaded
     episodes_to_downloaded = list(filter(
-        lambda episode: episode.published > latest_downloaded_published,
+        lambda episode:
+            episode.published > latest_downloaded_published and
+            episode not in meta.get('downloads', []),
         available_episodes
     ))[:configuration.getint('General', 'max')]
     logger.debug('will downloaded these episodes: %s', episodes_to_downloaded)
