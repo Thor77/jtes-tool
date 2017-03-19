@@ -5,7 +5,7 @@ from jtes.episodes import Episode
 
 
 def play(path):
-    Popen([path], executable='mpv')
+    Popen(['mpv', path])
 
 
 def parse_downloads(downloads):
