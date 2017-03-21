@@ -9,7 +9,6 @@ from os.path import join
 
 from jtes import config, downloader, episodes, utils
 from jtes.logger import file_handler, stream_handler
-from jtes.utils import play
 
 logger = logging.getLogger('jtes')
 
@@ -67,7 +66,7 @@ def main(configuration):
     logger.debug(
         'read metadata from %s: %s', meta_path, pprint.pformat(meta))
     downloaded_episodes = sorted(
-        utils.parse_downloads(meta.get('downloads', [])),
+        meta.get('downloads', []),
         key=lambda e: e.published
     )
     # find unplayed files
@@ -80,7 +79,7 @@ def main(configuration):
         for unplayed_episode in sorted(
                 unplayed, reverse=True, key=lambda e: e.published):
             # play episode
-            play(unplayed_episode.path)
+            utils.play(unplayed_episode.path)
             # add episode to history
             meta.setdefault('history', []).append(unplayed_episode)
     logger.debug('no unplayed episodes left, fetching new ones')
