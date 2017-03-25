@@ -29,6 +29,7 @@ def download_episodes(episodes, target_path):
             jtes_info = ytdl.extract_info(episode.path, process=False)
             if len(jtes_info['entries']) <= 0:
                 logger.warning('No download found for %s', episode.path)
+                continue
             mix_url = jtes_info['entries'][0]['url']  # only download first
 
             # download mix
