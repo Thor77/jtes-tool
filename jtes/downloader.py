@@ -25,6 +25,8 @@ def download_episodes(episodes, target_path):
     downloaded_episodes = []
     with youtube_dl.YoutubeDL(YTDL_OPTIONS) as ytdl:
         for episode in episodes:
+            logger.info('Downloading %s', episode.name)
+            logger.debug('downloading %s', episode)
             # first extract mix-url from JedenTagEinSet
             jtes_info = ytdl.extract_info(episode.path, process=False)
             if len(jtes_info['entries']) <= 0:

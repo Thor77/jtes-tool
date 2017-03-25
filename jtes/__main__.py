@@ -75,13 +75,13 @@ def main(configuration):
         downloaded_episodes
     ))
     if unplayed:
-        logger.debug('there are unplayed episodes: %s', unplayed)
+        logger.info('There are unplayed episodes: %s', unplayed)
         for unplayed_episode in unplayed:
             # play episode
             utils.play(unplayed_episode.path)
             # add episode to history
             meta.setdefault('history', []).append(unplayed_episode)
-    logger.debug('no unplayed episodes left, fetching new ones')
+    logger.info('No unplayed episodes left, fetching new ones')
     available_episodes = episodes.available()
     logger.debug('there are episodes available for download: %s',
                  available_episodes)
