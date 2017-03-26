@@ -85,17 +85,14 @@ def main(configuration):
     available_episodes = episodes.available()
     logger.debug('there are episodes available for download: %s',
                  available_episodes)
-    # find published date of latest downloaded file
-    latest_downloaded_published = downloaded_episodes[-1].published \
-        if downloaded_episodes else date.min
-    logger.debug('latest downloaded episode is from %s',
-                 latest_downloaded_published)
-    # only download episodes newer than latest_download
-    # and not already downloaded
+    # strip path from episodes
+    # maybe add an url-attr in the future
+    old_downloads = list(
+        map(lambda e: e._replace(path=None), meta.get('downloads', []))
+    )
+    # only download not downloaded episodes
     episodes_to_downloaded = list(filter(
-        lambda episode:
-            episode.published > latest_downloaded_published and
-            episode not in meta.get('downloads', []),
+        lambda episode: episode._replace(path=None) not in old_downloads,
         available_episodes
     ))[:configuration.getint('General', 'max')]
     logger.debug('will downloaded these episodes: %s', episodes_to_downloaded)
