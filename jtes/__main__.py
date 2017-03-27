@@ -4,7 +4,6 @@ import logging
 import os
 import pickle
 import pprint
-from datetime import date
 from os.path import join
 
 from jtes import config, downloader, episodes, utils
