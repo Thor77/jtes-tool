@@ -33,6 +33,10 @@ def cli():
         '-m', '--max',
         type=int, help='max episodes to download'
     )
+    parser.add_argument(
+        '-nd', '--nodownload',
+        help='dont download new episodes', action='store_true'
+    )
     options = parser.parse_args()
     if 'config' in options:
         configuration = config.load(options.config)
@@ -80,6 +84,9 @@ def main(configuration):
             utils.play(unplayed_episode.path)
             # add episode to history
             meta.setdefault('history', []).append(unplayed_episode)
+    if configuration.getboolean('General', 'nodownload'):
+        logger.info('downloading new episodes forbidden (nodownload) -> exit')
+        return
     logger.info('No unplayed episodes left, fetching new ones')
     available_episodes = episodes.available()
     logger.debug('there are episodes available for download: %s',

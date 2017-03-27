@@ -13,7 +13,8 @@ DEFAULT_CONFIG = {
     'General': {
         'debug': False,
         'storage': 'storage/',
-        'max': 4
+        'max': 4,
+        'nodownload': False
     }
 }
 
