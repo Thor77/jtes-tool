@@ -104,6 +104,12 @@ def main(configuration):
     logger.debug('will downloaded these episodes: %s', episodes_to_downloaded)
     downloads = downloader.download_episodes(
         episodes_to_downloaded, episodes_path)
+    # play downloaded episodes
+    for download in downloads:
+        # play episode
+        utils.play(download.path)
+        # add episode to history
+        meta.setdefault('history', []).append(download)
     meta.setdefault('downloads', []).extend(downloads)
     # write metadata
     with open(meta_path, 'wb+') as f:
