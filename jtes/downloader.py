@@ -38,9 +38,8 @@ def download_episodes(episodes, target_path):
             def save_episode(progress):
                 if progress['status'] != 'finished':
                     return
-                downloaded_episodes.append(
-                    episode._replace(path=progress['filename'])
-                )
+                episode.path = progress['filename']
+                downloaded_episodes.append(episode)
             ytdl.add_progress_hook(save_episode)
             ytdl.extract_info(mix_url)
             ytdl._progress_hooks.remove(save_episode)

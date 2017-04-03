@@ -1,12 +1,24 @@
+from datetime import date
+
 import feedparser
 
-from collections import namedtuple
 
-from datetime import date
+class Episode(object):
+    def __init__(self, path=None, name=None, published=None):
+        self.path = path
+        self.name = name
+        self.published = published
+
+    def __eq__(self, other):
+        return self.name == other.name
+
+    def __repr__(self):
+        return 'Episode(path={}, name={}, published={})'.format(
+            self.path, self.name, self.published
+        )
 
 
 FEED_URL = 'http://www.jedentageinset.de/feed/'
-Episode = namedtuple('Episode', ['path', 'name', 'published'])
 
 
 def available():
